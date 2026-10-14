@@ -1,0 +1,4 @@
+interface:
+  display_name: "녹취록 회의록 변환"
+  short_description: "TXT 녹취록을 디자인된 HTML 회의록으로 변환합니다."
+  default_prompt: "Use $transcript-to-meeting-notes to turn the attached TXT transcript into a clean standalone HTML meeting-notes file."

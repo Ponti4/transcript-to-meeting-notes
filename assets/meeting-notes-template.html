@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{회의 제목}} · Meeting Notes</title>
+  <style>
+    :root {
+      --canvas: #f4f1eb;
+      --paper: #fffdf9;
+      --ink: #252724;
+      --muted: #6f746d;
+      --line: #dedbd3;
+      --accent: #37675a;
+      --accent-soft: #e7f0ec;
+      --warm: #f4e9da;
+      --shadow: 0 18px 50px rgba(37, 39, 36, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--canvas);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    main {
+      width: min(920px, calc(100% - 32px));
+      margin: 48px auto;
+      padding: clamp(28px, 6vw, 64px);
+      background: var(--paper);
+      border: 1px solid rgba(222, 219, 211, 0.8);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.7rem);
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+    }
+    h2 {
+      margin: 0 0 18px;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+    }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 32px 0;
+    }
+    .meta-item {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+    .label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+    .summary {
+      margin: 32px 0 8px;
+      padding: 24px;
+      background: var(--accent);
+      color: white;
+      border-radius: 18px;
+      font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+      font-weight: 650;
+    }
+    section {
+      padding: 32px 0;
+      border-top: 1px solid var(--line);
+    }
+    section:first-of-type { border-top: 0; }
+    ul { margin: 0; padding-left: 1.25rem; }
+    li + li { margin-top: 10px; }
+    .decision-list { list-style: none; padding: 0; }
+    .decision-list li {
+      position: relative;
+      padding: 14px 16px 14px 44px;
+      background: var(--accent-soft);
+      border-radius: 12px;
+    }
+    .decision-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 16px;
+      color: var(--accent);
+      font-weight: 900;
+    }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 620px; }
+    th, td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+    .status {
+      display: inline-block;
+      padding: 3px 9px;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+    .open-questions {
+      padding: 20px 22px;
+      background: var(--warm);
+      border-radius: 16px;
+    }
+    .next-step {
+      padding-left: 18px;
+      border-left: 3px solid var(--accent);
+    }
+    footer {
+      padding-top: 24px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-align: right;
+    }
+    @media (max-width: 680px) {
+      main { width: min(100% - 20px, 920px); margin: 10px auto; border-radius: 16px; }
+      .meta { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: white; }
+      main { width: 100%; margin: 0; padding: 0; border: 0; box-shadow: none; }
+      .summary, .decision-list li, .open-questions { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Meeting Notes · {{YYYY.MM.DD 또는 UNDATED}}</p>
+      <h1>{{회의 제목}}</h1>
+      <div class="meta">
+        <div class="meta-item"><span class="label">일시</span>{{일시 또는 미정}}</div>
+        <div class="meta-item"><span class="label">참석자</span>{{참석자 또는 미정}}</div>
+        <div class="meta-item"><span class="label">목적</span>{{회의 목적 또는 미정}}</div>
+      </div>
+      <p class="summary">{{한 줄 요약}}</p>
+    </header>
+
+    <section>
+      <h2>주요 논의사항</h2>
+      <ul>
+        <li>{{논의사항}}</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>결정사항</h2>
+      <ul class="decision-list">
+        <li>{{확정된 결정}}</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>실행 항목</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>담당자</th><th>할 일</th><th>기한</th><th>상태</th></tr></thead>
+          <tbody>
+            <tr><td>{{담당자 또는 미정}}</td><td>{{실행 내용}}</td><td>{{기한 또는 미정}}</td><td><span class="status">예정</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>미해결 질문</h2>
+      <div class="open-questions">
+        <ul><li>{{추가 확인이 필요한 내용}}</li></ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>다음 체크포인트</h2>
+      <div class="next-step">{{다음에 확인할 내용과 일정 또는 미정}}</div>
+    </section>
+
+    <footer>Generated from meeting transcript</footer>
+  </main>
+</body>
+</html>
